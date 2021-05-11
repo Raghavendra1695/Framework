@@ -10,6 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -44,11 +45,16 @@ public class BaseClass {
 		Reporter.log("Setting Done- Test can be started", true);
 	}
 
+	@Parameters({"browser", "url"}) //whatever we pass inpom.xml for the browser value, 
+	//we need to pass that here, i.e., in pom we are passing browser and hence here it is browser
 	@BeforeClass
-	public void setUP() {
+	public void setUP(String browser, String url) {
 		
 		Reporter.log("Trying to start Browser and Getting application ready", true);
-		driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getStagingURL());
+		
+		//driver = BrowserFactory.startApplication(driver, config.getBrowser(), config.getStagingURL());
+		
+		driver = BrowserFactory.startApplication(driver, browser, url);
 		
 		Reporter.log("Browser and Appliaction is up and running ", true);
 	}
